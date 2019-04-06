@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view/>
+      <router-view/>
   </div>
 </template>
 
@@ -8,5 +8,9 @@
 html,body,div {
   padding: 0;
   margin: 0;
+}
+a {
+  text-decoration: none;
+  color: #303133;
 }
 </style>

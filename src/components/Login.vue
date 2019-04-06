@@ -43,22 +43,23 @@ export default {
       }
     },
     methods: {
-       login(username,password) {
-          this.axios.post('http://192.168.10.102:8080/haohaihengda/user/login.do', {
-          username: this.username,
-          password: this.password
-        })
-        .then(function (res) {
-          if(res.data.status == '200') {
-            router.push({
-               path: '/home'
+       login() {
+      //     this.axios.post('http://192.168.10.102:8080/haohaihengda/user/login.do', {
+      //     username: this.username,
+      //     password: this.password
+      //   })
+      //   .then(function (res) {
+          // if(res.data.status == '200') {
+            this.$router.push({
+              path: '/home'
             })
-          }
-          return res
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+          // }
+        //   return res
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
+      //  }
        }
     } 
 }
