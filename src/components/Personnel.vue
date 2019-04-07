@@ -24,7 +24,6 @@
                 action="https://jsonplaceholder.typicode.com/posts/"
                 list-type="picture-card"
                 :on-remove="handleRemove">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
                <i class="el-icon-plus"></i>
                <div slot="tip" class="el-upload__tip">点击上传头像</div>
              </el-upload>
@@ -60,9 +59,146 @@
                 :value="item.value">
               </el-option>
             </el-select>
-            
+            <br>
+            <span>用户名：</span>
+              <el-input
+                placeholder="请输入用户名"
+                v-model="username"
+                clearable>
+              </el-input>
+              <span>密码：</span>
+              <el-input 
+                style="width: 240px;"
+                placeholder="请输入密码" 
+                v-model="password" 
+                show-password
+              >
+              </el-input>
+
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>教育情况</span>
+                  <div class="add-delete">
+                   <el-button type="success" round>添加</el-button>
+                   <el-button type="danger" round>删除</el-button>
+                  </div>  
+                </div>
+                <div class="text">
+                  <el-input
+                    type="textarea"
+                    autosize
+                    placeholder="请输入内容"
+                    v-model="textarea">
+                  </el-input>
+                </div>
+              </el-card>
+
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>奖惩情况</span>
+                  <div class="add-delete">
+                   <el-button type="success" round>添加</el-button>
+                   <el-button type="danger" round>删除</el-button>
+                  </div>  
+                </div>
+                <div class="text">
+                  <el-input
+                    type="textarea"
+                    autosize
+                    placeholder="请输入内容"
+                    v-model="textarea2">
+                  </el-input>
+                </div>
+              </el-card>
+
+              <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>任职情况</span>
+                  <div class="add-delete">
+                   <el-button type="success" round>添加</el-button>
+                   <el-button type="danger" round>删除</el-button>
+                  </div>  
+                </div>
+                <div class="text">
+                  <el-input
+                    type="textarea"
+                    autosize
+                    placeholder="请输入内容"
+                    v-model="textarea3">
+                  </el-input>
+                  <div class="submit-reset">
+                    <el-button type="primary" round>提交</el-button>
+                   <el-button type="info" round>重置</el-button>
+                  </div> 
+                </div>
+              </el-card>
           </el-tab-pane>
-          <el-tab-pane label="人员列表">人员列表</el-tab-pane>
+          <el-tab-pane label="人员列表">
+           <el-table
+            ref="multipleTable"
+            :data="tableData"
+            tooltip-effect="dark"
+            style="width: 100%"
+            @selection-change="handleSelectionChange">
+            <el-table-column
+              type="selection"
+              width="55">
+            </el-table-column>
+            <el-table-column
+               prop="id"
+               label="序号"
+               width="50">
+           </el-table-column>
+            <el-table-column
+              label="日期"
+              width="120">
+              <template slot-scope="scope">{{ scope.row.date }}</template>
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              width="120">
+            </el-table-column>
+            <el-table-column
+              prop="department"
+              label="部门"
+              width="120"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="specialty"
+              label="专业"
+              width="250"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="job"
+              label="职务"
+              width="200"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="erecord"
+              label="电子档案"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="operation"
+              label="操作"
+            >
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+            </el-table-column>
+          </el-table>
+
+          </el-tab-pane>
        </el-tabs>
       </el-main>
     
@@ -77,6 +213,11 @@ export default {
   },
   data() {
       return {
+         textarea: '',
+         textarea2: '',
+         textarea3: '',
+         username: '',
+         password: '',
          imageUrl: '',
          IdNumber: '',
          nativePlace: provinceAndCityData,
@@ -116,6 +257,65 @@ export default {
            label: '其他'
          }],
          value1: '',
+         tableData: [{
+          id: '1',
+          date: '2016-05-03',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '2',
+          date: '2016-05-02',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '3',
+          date: '2016-05-04',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '4',
+          date: '2016-05-01',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '5',
+          date: '2016-05-08',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '6',
+          date: '2016-05-06',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }, {
+          id: '7',
+          date: '2016-05-07',
+          name: '王小虎',
+          department: '学生会',
+          specialty: '计算机应用技术',
+          job: '学生会会长',
+          erecord: '/'
+        }],
+        multipleSelection: []
+
       }
     },
     methods: {
@@ -133,18 +333,16 @@ export default {
      handleChange(val) {
         console.log(val);
       },
-     handleChange(value) {
-       console.log(value)
-     },
-     handleRemove(file, fileList) {
-        console.log(file, fileList);
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
       },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
       }
     }
- 
 }
 </script>
 <style scoped>
@@ -203,4 +401,19 @@ span {
   margin-left: 20px;
   font-size: 20px;
 }
+.box-card {
+  width: 95%;
+  margin: 30px 0px 30px 30px;
+}
+.add-delete {
+  float: right;
+  width: 20%;
+}
+.submit-reset {
+  float: right;
+  margin: 30px 60px 30px 0;
+}
+/* .el-button {
+  margin-left: 30px;
+} */
 </style>

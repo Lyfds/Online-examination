@@ -23,7 +23,7 @@
         </el-menu-item>
         <el-menu-item index="2">
           <i class="el-icon-setting"></i>
-          <span slot="title">学习资料</span>
+         <router-link to="/home/datum">学习资料</router-link>
         </el-menu-item>
         <el-menu-item index="3">
           <i class="el-icon-setting"></i>

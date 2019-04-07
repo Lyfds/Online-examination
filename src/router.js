@@ -26,6 +26,10 @@ export default new Router({
         path: 'testpaper',
         component: () => import('./views/Testpaper.vue')
        },
+       { 
+        path: 'datum',
+        component: () => import('./views/Datum.vue')
+       },
       ]
     }
     // {
